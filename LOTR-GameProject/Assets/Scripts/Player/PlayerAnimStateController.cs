@@ -33,4 +33,9 @@ public class PlayerAnimStateController : MonoBehaviour
             animator.SetBool(isRunningHash, false);
         }
     }
+
+    public void AttackAnim()
+    {
+        animator.SetTrigger("isAttacking");
+    }
 }
