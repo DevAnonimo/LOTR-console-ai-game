@@ -19,7 +19,7 @@ namespace DefaultNamespace
 
         public virtual void Start()
         {
-            _Agent = _Agent.gameObject.GetComponent<BaseAgent>();
+            _Agent = gameObject.GetComponent<BaseAgent>();
         }
 
         public virtual void Update()
