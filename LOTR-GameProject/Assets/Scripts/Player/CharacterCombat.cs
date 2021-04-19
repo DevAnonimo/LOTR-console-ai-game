@@ -1,53 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
+using SimpleEnemy;
 using UnityEngine;
 
-public class CharacterCombat : MonoBehaviour
+namespace Player
 {
-    public LayerMask enemyLayers;
-
-    public Transform attackPoint;
-    public float attackRange = 0.5f;
-    public int attackDamage = 40;
-
-    public float attackRate = 2f;
-    float nextAttackTime = 0f;
-
-    private void Update()
+    public class CharacterCombat : MonoBehaviour
     {
-        if(Time.time >= nextAttackTime)
+        public LayerMask enemyLayers;
+
+        public Transform attackPoint;
+        public float attackRange = 0.5f;
+        public int attackDamage = 40;
+
+        public float attackRate = 2f;
+        float nextAttackTime = 0f;
+
+        private void Update()
         {
-            if (Input.GetButtonDown("Fire1"))
+            if(Time.time >= nextAttackTime)
             {
-                Attack();
-                nextAttackTime = Time.time + 1f / attackRate;
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Attack();
+                    nextAttackTime = Time.time + 1f / attackRate;
+                }
+            }
+
+        
+        }
+
+        void Attack()
+        {
+            //Play animation
+            gameObject.GetComponent<PlayerAnimStateController>().AttackAnim();
+
+            //Detect enemies in range
+            Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
+
+            //Give damage
+            foreach(Collider enemy in hitEnemies)
+            {
+                enemy.GetComponent<SimpleEnemyCombatController>().TakeDamage(attackDamage);
             }
         }
 
-        
-    }
-
-    void Attack()
-    {
-        //Play animation
-        gameObject.GetComponent<PlayerAnimStateController>().AttackAnim();
-
-        //Detect enemies in range
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
-
-        //Give damage
-        foreach(Collider enemy in hitEnemies)
+        private void OnDrawGizmosSelected()
         {
-            enemy.GetComponent<SimpleEnemyCombatController>().TakeDamage(attackDamage);
+            if (attackPoint == null)
+                return;
+
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
         }
+
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (attackPoint == null)
-            return;
-
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }
-
 }

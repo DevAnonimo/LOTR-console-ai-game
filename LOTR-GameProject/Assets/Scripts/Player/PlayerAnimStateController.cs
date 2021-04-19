@@ -1,41 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimStateController : MonoBehaviour
+namespace Player
 {
-
-    Animator animator;
-    int isRunningHash;
-
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerAnimStateController : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-        isRunningHash = Animator.StringToHash("isRunning");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        bool isRunning = animator.GetBool(isRunningHash);
-        bool forwardPressed = Input.GetKey("w");
+        Animator animator;
+        int isRunningHash;
 
-        //w key is pressed
-        if (!isRunning && forwardPressed)
+        // Start is called before the first frame update
+        void Start()
         {
-            animator.SetBool(isRunningHash, true);
+            animator = GetComponent<Animator>();
+            isRunningHash = Animator.StringToHash("isRunning");
         }
 
-        //w key is not pressed
-        if (isRunning && !forwardPressed)
+        // Update is called once per frame
+        void Update()
         {
-            animator.SetBool(isRunningHash, false);
-        }
-    }
+            bool isRunning = animator.GetBool(isRunningHash);
+            bool forwardPressed = Input.GetKey("w");
 
-    public void AttackAnim()
-    {
-        animator.SetTrigger("isAttacking");
+            //w key is pressed
+            if (!isRunning && forwardPressed)
+            {
+                animator.SetBool(isRunningHash, true);
+            }
+
+            //w key is not pressed
+            if (isRunning && !forwardPressed)
+            {
+                animator.SetBool(isRunningHash, false);
+            }
+        }
+
+        public void AttackAnim()
+        {
+            animator.SetTrigger("isAttacking");
+        }
     }
 }

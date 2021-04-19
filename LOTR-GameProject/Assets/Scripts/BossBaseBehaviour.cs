@@ -1,58 +1,55 @@
 ﻿using System;
 using UnityEngine;
 
-namespace DefaultNamespace
+public class BossBaseBehaviour : MonoBehaviour
 {
-    public class BossBaseBehaviour : MonoBehaviour
+    public float maxSpeed;
+
+    public SeekState seekState;
+
+    public SeekBehaviour seekBehaviour;
+
+    public BaseAgent agent;
+    public BossPossibleState currentState;
+    public GameObject target;
+
+    private void Start()
     {
-        public float maxSpeed;
+        agent = gameObject.AddComponent<BaseAgent>();
+        agent.maxSpeed = maxSpeed;
+    }
 
-        public SeekState seekState;
-
-        public SeekBehaviour seekBehaviour;
-
-        public BaseAgent agent;
-        public BossPossibleState currentState;
-        public GameObject target;
-
-        private void Start()
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
         {
-            agent = gameObject.AddComponent<BaseAgent>();
-            agent.maxSpeed = maxSpeed;
-        }
-
-        private void Update()
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
-                if (currentState == BossPossibleState.Idle)
-                    ChangeState(BossPossibleState.Seek);
-                else
-                    ChangeState(BossPossibleState.Idle);
-            }
-        }
-
-        private void ChangeState(BossPossibleState newState)
-        {
-            currentState = newState;
-
-            switch (newState)
-            {
-                case BossPossibleState.Idle:
-                    DestroyImmediate(seekState);
-                    break;
-                case BossPossibleState.Seek:
-                    if (gameObject.GetComponent<SeekState>() == null)
-                        seekState = gameObject.AddComponent<SeekState>();
-                    break;
-            }
+            if (currentState == BossPossibleState.Idle)
+                ChangeState(BossPossibleState.Seek);
+            else
+                ChangeState(BossPossibleState.Idle);
         }
     }
 
-    public enum BossPossibleState
+    private void ChangeState(BossPossibleState newState)
     {
-        Idle,
-        Seek,
-        Attack
+        currentState = newState;
+
+        switch (newState)
+        {
+            case BossPossibleState.Idle:
+                DestroyImmediate(seekState);
+                break;
+            case BossPossibleState.Seek:
+                if (gameObject.GetComponent<SeekState>() == null)
+                    seekState = gameObject.AddComponent<SeekState>();
+                break;
+        }
     }
+}
+
+public enum BossPossibleState
+{
+    Idle,
+    Seek,
+    Attack
 }

@@ -1,36 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnemyCombatController : MonoBehaviour
+namespace SimpleEnemy
 {
-    public int maxHealth = 100;
-    int currentHealth;
-
-    // Start is called before the first frame update
-    void Start()
+    public class SimpleEnemyCombatController : MonoBehaviour
     {
-        currentHealth = maxHealth;
-    }
+        public int maxHealth = 100;
+        int currentHealth;
 
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        //Play hurt anim
-
-        if(currentHealth <= 0)
+        // Start is called before the first frame update
+        void Start()
         {
-            Die();
+            currentHealth = maxHealth;
         }
-    }
 
-    void Die()
-    {
-        Debug.Log("enemy died");
-        //Die animation
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
 
-        //Disable enemy
-        Destroy(gameObject);
+            //Play hurt anim
+
+            if(currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
+        void Die()
+        {
+            Debug.Log("enemy died");
+            //Die animation
+
+            //Disable enemy
+            Destroy(gameObject);
+        }
     }
 }
