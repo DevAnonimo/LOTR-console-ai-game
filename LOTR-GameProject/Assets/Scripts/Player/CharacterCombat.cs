@@ -7,6 +7,10 @@ namespace Player
     {
         public LayerMask enemyLayers;
 
+        public Transform superAttackPoint;
+        public float superAttackRange = 0.5f;
+        public int superAttackDamage = 40;
+
         public Transform attackPoint;
         public float attackRange = 0.5f;
         public int attackDamage = 40;
@@ -22,6 +26,9 @@ namespace Player
                 {
                     Attack();
                     nextAttackTime = Time.time + 1f / attackRate;
+                }
+                else if (Input.GetKeyDown(KeyCode.Q)){
+                    SuperAttack();
                 }
             }
 
@@ -43,12 +50,28 @@ namespace Player
             }
         }
 
+        void SuperAttack()
+        {
+            //Play animation
+            gameObject.GetComponent<PlayerAnimStateController>().SuperAttackAnim();
+
+            //Detect enemies in range
+            Collider[] hitEnemies = Physics.OverlapSphere(superAttackPoint.position, superAttackRange, enemyLayers);
+
+            //Give damage
+            foreach (Collider enemy in hitEnemies)
+            {
+                enemy.GetComponent<SimpleEnemyCombatController>().TakeDamage(superAttackDamage);
+            }
+        }
+
         private void OnDrawGizmosSelected()
         {
             if (attackPoint == null)
                 return;
 
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+            Gizmos.DrawWireSphere(superAttackPoint.position, superAttackRange);
         }
 
     }

@@ -22,10 +22,14 @@ namespace Player
         public LayerMask groundMask;
         bool isGrounded;
 
+        private PlayerAnimStateController animations;
+
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            animations = GameObject.Find("wairror").GetComponent<PlayerAnimStateController>();
         }
 
         // Update is called once per frame
@@ -59,11 +63,15 @@ namespace Player
             if(Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                //Play animation
+                animations.JumpAnim();
             }
 
             velocity.y += gravity * Time.deltaTime;
 
             controller.Move(velocity * Time.deltaTime);
+
+
 
         }
     }

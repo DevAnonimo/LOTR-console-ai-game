@@ -47,5 +47,15 @@ namespace Player
         {
             animator.SetTrigger("isAttacking");
         }
+
+        public void JumpAnim()
+        {
+            animator.Play("ArmatureSoldier_Jump");
+        }
+
+        public void SuperAttackAnim()
+        {
+            animator.Play("ArmatureSoldier_SpecialAttack");
+        }
     }
 }
