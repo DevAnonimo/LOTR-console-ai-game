@@ -137,10 +137,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 190831262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 565985bd42d84496926266fed867ca67, type: 3}
+  m_Script: {fileID: 11500000, guid: fc69f0c765fd2a74995b3f55b2c10287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
+  rotationSpeed: 0
+  distanceToAttack: 3
+  distanceToBeginArrival: 0
   seekState: {fileID: 0}
   seekBehaviour: {fileID: 0}
   agent: {fileID: 0}
@@ -357,7 +360,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1093010194
 MonoBehaviour:
   m_ObjectHideFlags: 0

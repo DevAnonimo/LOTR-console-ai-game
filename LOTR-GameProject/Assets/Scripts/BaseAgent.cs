@@ -3,16 +3,11 @@ using UnityEngine;
 
 public class BaseAgent : MonoBehaviour
 {
-    public float maxSpeed = 1.0f;
+    public float speed = 1.0f;
     public float maxAcceleration = 30.0f;
 
-    public float orientation;
-    public float rotation;
     public Vector3 Velocity;
     public Steering Steer;
-
-    public float maxRotation = 45.0f;
-    public float maxAngularAcceleration = 45.0f;
 
     private void Start()
     {
@@ -24,20 +19,12 @@ public class BaseAgent : MonoBehaviour
     {
         var displacement = Velocity * Time.deltaTime;
         displacement.y = 0;
-        orientation += rotation * Time.deltaTime;
-        orientation = CapOrientation(orientation);
-
-        Transform thisTransform;
-
-        (thisTransform = transform).Translate(displacement, Space.World);
-        thisTransform.rotation = new Quaternion();
-        transform.Rotate(Vector3.up, orientation);
+        transform.Translate(displacement, Space.World);
     }
 
     private void LateUpdate()
     {
         Velocity += Steer.Linear * Time.deltaTime;
-        rotation += Steer.Angular * Time.deltaTime;
 
         Velocity = CapVelocity(Velocity);
         if (Steer.Linear.magnitude == 0.0f)
@@ -49,7 +36,6 @@ public class BaseAgent : MonoBehaviour
     public void SetSteering(Steering steer, float weight)
     {
         Steer.Linear += weight * steer.Linear;
-        Steer.Angular += weight * steer.Angular;
     }
 
     /// <summary>
@@ -59,11 +45,11 @@ public class BaseAgent : MonoBehaviour
     /// <returns>A velocidade corrigida</returns>
     private Vector3 CapVelocity(Vector3 currentVelocity)
     {
-        if (!(currentVelocity.magnitude > maxSpeed))
+        if (!(currentVelocity.magnitude > speed))
             return currentVelocity;
 
         currentVelocity.Normalize();
-        currentVelocity *= maxSpeed;
+        currentVelocity *= speed;
 
         return currentVelocity;
     }
