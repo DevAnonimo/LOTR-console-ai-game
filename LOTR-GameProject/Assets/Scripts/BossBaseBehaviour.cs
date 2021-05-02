@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class BossBaseBehaviour : MonoBehaviour
 {
-    private float arrivingSpeed;
-    private float currentSpeed;
+    private float _currentSpeed;
 
     public float maxSpeed;
     public float distanceToAttack;
@@ -22,8 +21,8 @@ public class BossBaseBehaviour : MonoBehaviour
     {
         agent = gameObject.AddComponent<BaseAgent>();
         agent.speed = maxSpeed;
-        arrivingSpeed = maxSpeed;
-        currentSpeed = maxSpeed;
+        _currentSpeed = maxSpeed;
+        _currentSpeed = maxSpeed;
     }
 
     private void Update()
@@ -39,7 +38,7 @@ public class BossBaseBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CheckTargetDistance();
+        BeginArrival();
     }
 
     private void ChangeState(BossPossibleState newState)
@@ -55,32 +54,25 @@ public class BossBaseBehaviour : MonoBehaviour
                 if (gameObject.GetComponent<SeekState>() == null)
                     seekState = gameObject.AddComponent<SeekState>();
                 break;
-
         }
     }
 
-    private void CheckTargetDistance()
+    private void BeginArrival()
     {
         var distance = Vector3.Distance(target.transform.position, transform.position);
 
         if (distance < distanceToBeginArrival)
         {
-            arrivingSpeed -= arrivingSpeed * Time.deltaTime;
+            _currentSpeed -= _currentSpeed * Time.deltaTime;
 
             if (distance < 0.5f)
-                arrivingSpeed = 0f;
+                _currentSpeed = 0f;
         }
 
-        if (distance > distanceToBeginArrival && arrivingSpeed <= maxSpeed)
-        {
-            arrivingSpeed += maxSpeed * Time.deltaTime;
-        }
+        if (distance > distanceToBeginArrival && _currentSpeed <= maxSpeed)
+            _currentSpeed += maxSpeed * Time.deltaTime;
 
-
-        agent.speed = arrivingSpeed;
-
-        Debug.Log($"Distancia: {distance}");
-        Debug.Log($"Velocidade: {arrivingSpeed}");
+        agent.speed = _currentSpeed;
     }
 
     public enum BossPossibleState
