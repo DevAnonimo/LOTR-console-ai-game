@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class SeekState : MonoBehaviour
 {
-    private BossBaseBehaviour _behaviour;
+    private BaseBehaviour _behaviour;
     private GameObject _target;
 
     private void Start()
     {
-        _behaviour = gameObject.GetComponent<BossBaseBehaviour>();
+        _behaviour = gameObject.GetComponent<BaseBehaviour>();
         _target = _behaviour.target;
 
         if (_behaviour.seekBehaviour == null)
@@ -22,6 +22,6 @@ public class SeekState : MonoBehaviour
 
     private void OnDestroy()
     {
-        DestroyImmediate(_behaviour.seekBehaviour);
+        Destroy(_behaviour.seekBehaviour, 0f);
     }
 }

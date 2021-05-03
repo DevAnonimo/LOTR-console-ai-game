@@ -1,8 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-public class BossBaseBehaviour : MonoBehaviour
+public class BaseBehaviour : MonoBehaviour
 {
+    public enum EnemyPossibleState
+    {
+        Idle,
+        Seek,
+        Attack
+    }
+
     private float _currentSpeed;
 
     public float maxSpeed;
@@ -14,7 +21,7 @@ public class BossBaseBehaviour : MonoBehaviour
     public SeekBehaviour seekBehaviour;
 
     public BaseAgent agent;
-    public BossPossibleState currentState;
+    public EnemyPossibleState currentState;
     public GameObject target;
 
     private void Start()
@@ -25,39 +32,28 @@ public class BossBaseBehaviour : MonoBehaviour
         _currentSpeed = maxSpeed;
     }
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (currentState == BossPossibleState.Idle)
-                ChangeState(BossPossibleState.Seek);
-            else
-                ChangeState(BossPossibleState.Idle);
-        }
-    }
-
     private void FixedUpdate()
     {
-        BeginArrival();
+        ControlMovingBehaviour();
     }
 
-    private void ChangeState(BossPossibleState newState)
+    public void ChangeState(EnemyPossibleState newState)
     {
         currentState = newState;
 
         switch (newState)
         {
-            case BossPossibleState.Idle:
+            case EnemyPossibleState.Idle:
                 DestroyImmediate(seekState);
                 break;
-            case BossPossibleState.Seek:
+            case EnemyPossibleState.Seek:
                 if (gameObject.GetComponent<SeekState>() == null)
                     seekState = gameObject.AddComponent<SeekState>();
                 break;
         }
     }
 
-    private void BeginArrival()
+    private void ControlMovingBehaviour()
     {
         var distance = Vector3.Distance(target.transform.position, transform.position);
 
@@ -65,7 +61,7 @@ public class BossBaseBehaviour : MonoBehaviour
         {
             _currentSpeed -= _currentSpeed * Time.deltaTime;
 
-            if (distance < 0.5f)
+            if (distance < 1.5f)
                 _currentSpeed = 0f;
         }
 
@@ -73,12 +69,5 @@ public class BossBaseBehaviour : MonoBehaviour
             _currentSpeed += maxSpeed * Time.deltaTime;
 
         agent.speed = _currentSpeed;
-    }
-
-    public enum BossPossibleState
-    {
-        Idle,
-        Seek,
-        Attack
     }
 }
