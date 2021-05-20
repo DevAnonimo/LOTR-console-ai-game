@@ -3596,6 +3596,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sauron
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 7c184a63de7782142988c135275aca5d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 73cf9c664222152429d896891e51eb06, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c184a63de7782142988c135275aca5d, type: 3}
 --- !u!4 &1251635461 stripped
@@ -3669,7 +3673,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389822842}
-  m_LocalRotation: {x: 0.31577292, y: 0.00000001632601, z: -0.00000000543331, w: 0.9488348}
+  m_LocalRotation: {x: 0.31577292, y: -0.000000016326013, z: 0.00000000543331, w: 0.9488348}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

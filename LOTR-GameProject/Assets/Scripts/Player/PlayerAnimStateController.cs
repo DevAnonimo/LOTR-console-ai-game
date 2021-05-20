@@ -6,6 +6,8 @@ namespace Player
     {
         public GameObject sword;
 
+        bool forwardPressed;
+
         Animator animator;
         int isRunningHash;
         int hasSwordHash;
@@ -24,7 +26,11 @@ namespace Player
         {
             bool isRunning = animator.GetBool(isRunningHash);
             bool hasSword = animator.GetBool(hasSwordHash);
-            bool forwardPressed = Input.GetKey("w");
+
+            if(Input.GetKey("w") || Input.GetKey("s") || Input.GetKey("a") || Input.GetKey("d"))
+                forwardPressed = true;
+            else
+                forwardPressed = false;
 
             //w key is pressed
             if (!isRunning && forwardPressed)
