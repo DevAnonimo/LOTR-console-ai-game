@@ -1,15 +1,44 @@
 fileFormatVersion: 2
-guid: 49c186128bdd1c145924543bfa27dbcc
+guid: 74797dcdd79621c4a8754cd030056e44
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
-      74: -7788554227351146972
-    second: Sauron|0TPose
+      74: -2918140934158661530
+    second: ArmatureSauron|0TPose
   - first:
-      74: -203655887218126122
-    second: mixamo.com
-  externalObjects: {}
+      74: 3139102819060184850
+    second: ArmatureSauron|AttackOne
+  - first:
+      74: -922588967785607577
+    second: ArmatureSauron|AttackThree
+  - first:
+      74: -4749664835534006026
+    second: ArmatureSauron|AttackTwo
+  - first:
+      74: 8252526556987479139
+    second: ArmatureSauron|Idle
+  - first:
+      74: -5464349231951739952
+    second: ArmatureSauron|Jump
+  - first:
+      74: 1091385566218973061
+    second: ArmatureSauron|Run
+  - first:
+      74: -7427224875672893658
+    second: ArmatureSauron|SpecialAttack
+  - first:
+      74: 5012624280601185039
+    second: ArmatureSauron|SwordIdle
+  - first:
+      74: 6637979844162385708
+    second: ArmatureSauron|SwordRun
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 8a1ea494718ada84884215dc51f9b27b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -29,7 +58,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -94,13 +123,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
