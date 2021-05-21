@@ -49,9 +49,11 @@ namespace Player
                 animator.SetBool(hasSwordHash, true);
         }
 
-        public void AttackAnim()
+        public void AttackAnim(string attack)
         {
-            animator.SetTrigger("isAttacking");
+            //animator.SetTrigger("isAttacking");
+
+            animator.Play(attack);
         }
 
         public void JumpAnim()
