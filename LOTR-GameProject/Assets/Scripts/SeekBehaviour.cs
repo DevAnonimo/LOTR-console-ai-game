@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class SeekBehaviour : AgentBehaviour
+﻿public class SeekBehaviour : AgentBehaviour
 {
     public override Steering GetSteering()
     {

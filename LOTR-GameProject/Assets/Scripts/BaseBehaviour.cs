@@ -1,73 +1,121 @@
-﻿using System;
+﻿using System.Linq;
+using Misc;
 using UnityEngine;
 
-public class BaseBehaviour : MonoBehaviour
+namespace LOTR_LowPoly
 {
-    public enum EnemyPossibleState
+    public abstract partial class BaseBehaviour : MonoBehaviour
     {
-        Idle,
-        Seek,
-        Attack
-    }
+        private float _currentSpeed;
+        private EnemyPossibleState _currentState;
 
-    private float _currentSpeed;
+        public delegate void EnemyGetsNear();
+        public delegate void EnemyGetsDistant();
 
-    public float maxSpeed;
-    public float distanceToAttack;
-    public float distanceToBeginArrival;
+        public event EnemyGetsNear OnEnemyGetsNear = () => { };
+        public event EnemyGetsDistant OnEnemyGetsDistant = () => { };
 
-    public SeekState seekState;
+        public float maxSpeed;
+        public float distanceToAttack;
+        public float distanceToBeginArrival;
 
-    public SeekBehaviour seekBehaviour;
+        public SeekState seekState;
 
-    public BaseAgent agent;
-    public EnemyPossibleState currentState;
-    public GameObject target;
+        public SeekBehaviour seekBehaviour;
 
-    private void Start()
-    {
-        agent = gameObject.AddComponent<BaseAgent>();
-        agent.speed = maxSpeed;
-        _currentSpeed = maxSpeed;
-        _currentSpeed = maxSpeed;
-    }
+        public BaseAgent agent;
+        public GameObject target;
+        public Animator animator;
+        public CombatAreaDoorTrigger combatAreaDoorTrigger;
 
-    private void FixedUpdate()
-    {
-        ControlMovingBehaviour();
-    }
-
-    public void ChangeState(EnemyPossibleState newState)
-    {
-        currentState = newState;
-
-        switch (newState)
+        protected virtual void Start()
         {
-            case EnemyPossibleState.Idle:
-                DestroyImmediate(seekState);
-                break;
-            case EnemyPossibleState.Seek:
+            combatAreaDoorTrigger.OnPlayerCrossBattleTrigger += player =>
+            {
+                target = player;
+                ChangeState(EnemyPossibleState.Seek);
+            };
+
+            agent = gameObject.AddComponent<BaseAgent>();
+            ChangeState(EnemyPossibleState.Idle);
+            agent.speed = maxSpeed;
+            _currentSpeed = maxSpeed;
+            _currentSpeed = maxSpeed;
+        }
+
+        private void FixedUpdate()
+        {
+            ControlMovingBehaviour();
+        }
+
+        protected void ChangeState(EnemyPossibleState newState)
+        {
+            //if (_currentState == newState) return;
+
+            _currentState = newState;
+
+            if (newState == EnemyPossibleState.Idle)
+            {
+                if (seekState != null) DestroyImmediate(seekState);
+            }
+            else if (newState == EnemyPossibleState.Seek)
+            {
                 if (gameObject.GetComponent<SeekState>() == null)
                     seekState = gameObject.AddComponent<SeekState>();
-                break;
+            }
+
+            UpdateCurrentAnimation(newState);
         }
-    }
 
-    private void ControlMovingBehaviour()
-    {
-        var distance = Vector3.Distance(target.transform.position, transform.position);
-
-        if (distance < distanceToBeginArrival)
+        private void UpdateCurrentAnimation<T>(T currentState) where T : EnemyPossibleState
         {
-            _currentSpeed -= _currentSpeed * Time.deltaTime;
+            if (!(animator is { }))
+                return;
 
-            if (distance < 1.5f)
-                _currentSpeed = 0f;
+            var enemyPossibleStates = Enumeration.GetAll<T>();
+
+            if (currentState == EnemyPossibleState.Idle || currentState == EnemyPossibleState.BattleStance)
+            {
+                foreach (var possibleStates in enemyPossibleStates)
+                {
+                    animator.SetBool(possibleStates.AnimationHash, false);
+                }
+
+                return;
+            }
+
+            var notRunningAnimations = enemyPossibleStates.Where(s => s != currentState);
+
+            foreach (var possibleStates in notRunningAnimations)
+            {
+                animator.SetBool(possibleStates.AnimationHash, false);
+            }
+
+            animator.SetBool(currentState.AnimationHash, true);
         }
 
-        if (distance > distanceToBeginArrival && _currentSpeed <= maxSpeed)
-            _currentSpeed += maxSpeed * Time.deltaTime;
+        private void ControlMovingBehaviour()
+        {
+            var distance = Vector3.Distance(target.transform.position, transform.position);
 
-        agent.speed = _currentSpeed;
+            if (distance < distanceToBeginArrival)
+            {
+                _currentSpeed -= _currentSpeed * Time.deltaTime;
+
+                if (distance < 1.5f)
+                    _currentSpeed = 0f;
+
+                OnEnemyGetsNear();
+            }
+
+            if (distance > distanceToBeginArrival && _currentSpeed <= maxSpeed && _currentState != EnemyPossibleState.Idle)
+            {
+                _currentSpeed += maxSpeed * Time.deltaTime;
+
+                OnEnemyGetsDistant();
+            }
+
+            agent.speed = _currentSpeed;
+        }
     }
 }

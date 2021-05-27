@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LOTR_LowPoly;
 using UnityEngine;
 
 public class SeekState : MonoBehaviour
