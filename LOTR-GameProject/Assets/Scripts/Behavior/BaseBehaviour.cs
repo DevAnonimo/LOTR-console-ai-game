@@ -1,15 +1,21 @@
 ﻿using System.Linq;
+using JetBrains.Annotations;
 using Misc;
+using SimpleEnemy;
 using UnityEngine;
+using static LOTR_LowPoly.AnimatorVariableNamesConstants;
 
 namespace LOTR_LowPoly
 {
     public abstract partial class BaseBehaviour : MonoBehaviour
     {
         private float _currentSpeed;
+        private float _canAttack = -1f;
         private EnemyPossibleState _currentState;
+        private SimpleEnemyCombatController _enemyCombatController;
 
         public delegate void EnemyGetsNear();
+
         public delegate void EnemyGetsDistant();
 
         public event EnemyGetsNear OnEnemyGetsNear = () => { };
@@ -18,6 +24,7 @@ namespace LOTR_LowPoly
         public float maxSpeed;
         public float distanceToAttack;
         public float distanceToBeginArrival;
+        public float attackCooldown = 5f;
 
         public SeekState seekState;
 
@@ -36,6 +43,12 @@ namespace LOTR_LowPoly
                 ChangeState(EnemyPossibleState.Seek);
             };
 
+            _canAttack = Time.time + attackCooldown;
+            _enemyCombatController = target.GetComponent<SimpleEnemyCombatController>();
+
+            OnEnemyGetsNear += AttackPlayer;
+            OnEnemyGetsDistant += () => ChangeState(EnemyPossibleState.Seek);
+
             agent = gameObject.AddComponent<BaseAgent>();
             ChangeState(EnemyPossibleState.Idle);
             agent.speed = maxSpeed;
@@ -50,17 +63,15 @@ namespace LOTR_LowPoly
 
         protected void ChangeState(EnemyPossibleState newState)
         {
-            //if (_currentState == newState) return;
-
             _currentState = newState;
 
             if (newState == EnemyPossibleState.Idle)
             {
-                if (seekState != null) DestroyImmediate(seekState);
+                if (seekState is { } == false) DestroyImmediate(seekState);
             }
             else if (newState == EnemyPossibleState.Seek)
             {
-                if (gameObject.GetComponent<SeekState>() == null)
+                if (gameObject.GetComponent<SeekState>() is { } == false)
                     seekState = gameObject.AddComponent<SeekState>();
             }
 
@@ -69,7 +80,7 @@ namespace LOTR_LowPoly
 
         private void UpdateCurrentAnimation<T>(T currentState) where T : EnemyPossibleState
         {
-            if (!(animator is { }))
+            if (animator is { } == false)
                 return;
 
             var enemyPossibleStates = Enumeration.GetAll<T>();
@@ -108,7 +119,8 @@ namespace LOTR_LowPoly
                 OnEnemyGetsNear();
             }
 
-            if (distance > distanceToBeginArrival && _currentSpeed <= maxSpeed && _currentState != EnemyPossibleState.Idle)
+            if (distance > distanceToBeginArrival && _currentSpeed <= maxSpeed &&
+                _currentState != EnemyPossibleState.Idle)
             {
                 _currentSpeed += maxSpeed * Time.deltaTime;
 
@@ -116,6 +128,22 @@ namespace LOTR_LowPoly
             }
 
             agent.speed = _currentSpeed;
+        }
+
+        private void AttackPlayer()
+        {
+            if (_canAttack < Time.time == false)
+            {
+                ChangeState(EnemyPossibleState.BattleStance);
+                return;
+            }
+
+            if (animator.GetBool(IsAttacking))
+                return;
+
+            ChangeState(EnemyPossibleState.Attack);
+            _enemyCombatController.TakeDamage(15);
+            _canAttack += attackCooldown;
         }
     }
 }

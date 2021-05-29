@@ -17,6 +17,7 @@ namespace SimpleEnemy
         {
             currentHealth -= damage;
 
+            Debug.Log(currentHealth);
             //Play hurt anim
 
             if(currentHealth <= 0)
