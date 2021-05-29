@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class CombatAreaDoorTrigger : MonoBehaviour
+namespace Scripts
 {
-    public delegate void PlayerCrossBattleTrigger(GameObject player);
-
-    public event PlayerCrossBattleTrigger OnPlayerCrossBattleTrigger = player => { };
-
-    private void OnTriggerEnter(Collider other)
+    public class CombatAreaDoorTrigger : MonoBehaviour
     {
-        if (other.CompareTag("Player") == false) return;
+        public delegate void PlayerCrossBattleTrigger(GameObject player);
 
-        OnPlayerCrossBattleTrigger(other.gameObject);
+        public event PlayerCrossBattleTrigger OnPlayerCrossBattleTrigger = player => { };
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player") == false) return;
+
+            OnPlayerCrossBattleTrigger(other.gameObject);
+        }
     }
 }

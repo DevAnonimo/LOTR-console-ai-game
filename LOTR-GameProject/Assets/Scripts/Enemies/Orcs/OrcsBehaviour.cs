@@ -1,8 +1,6 @@
-﻿using SimpleEnemy;
-using UnityEngine;
-using static LOTR_LowPoly.Sauron.SauronAnimatorVariableNamesConstants;
+﻿using Scripts.Behavior;
 
-namespace LOTR_LowPoly.Orcs
+namespace Scripts.Enemies.Orcs
 {
     public sealed class OrcsBehaviour : BaseBehaviour
     {

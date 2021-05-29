@@ -1,9 +1,9 @@
 ﻿using System;
-using Misc;
+using Scripts.Misc;
 using UnityEngine;
-using static LOTR_LowPoly.AnimatorVariableNamesConstants;
+using static Scripts.AnimatorVariableNamesConstants;
 
-namespace LOTR_LowPoly
+namespace Scripts.Behavior
 {
     public partial class BaseBehaviour
     {

@@ -1,27 +1,29 @@
-﻿using LOTR_LowPoly;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SeekState : MonoBehaviour
+namespace Scripts.Behavior
 {
-    private BaseBehaviour _behaviour;
-    private GameObject _target;
-
-    private void Start()
+    public class SeekState : MonoBehaviour
     {
-        _behaviour = gameObject.GetComponent<BaseBehaviour>();
-        _target = _behaviour.target;
+        private BaseBehaviour _behaviour;
+        private GameObject _target;
 
-        if (_behaviour.seekBehaviour == null)
+        private void Start()
         {
-            _behaviour.seekBehaviour = gameObject.AddComponent<SeekBehaviour>();
-            _behaviour.seekBehaviour.target = _target;
-            _behaviour.seekBehaviour.weight = 1.0f;
-            _behaviour.seekBehaviour.enabled = true;
-        }
-    }
+            _behaviour = gameObject.GetComponent<BaseBehaviour>();
+            _target = _behaviour.target;
 
-    private void OnDestroy()
-    {
-        Destroy(_behaviour.seekBehaviour, 0f);
+            if (_behaviour.seekBehaviour == null)
+            {
+                _behaviour.seekBehaviour = gameObject.AddComponent<SeekBehaviour>();
+                _behaviour.seekBehaviour.target = _target;
+                _behaviour.seekBehaviour.weight = 1.0f;
+                _behaviour.seekBehaviour.enabled = true;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Destroy(_behaviour.seekBehaviour, 0f);
+        }
     }
 }

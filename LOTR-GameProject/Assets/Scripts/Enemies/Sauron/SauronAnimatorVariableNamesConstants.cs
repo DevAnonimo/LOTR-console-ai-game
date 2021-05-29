@@ -1,4 +1,4 @@
-﻿namespace LOTR_LowPoly.Sauron
+﻿namespace Scripts.Enemies.Sauron
 {
     public static class SauronAnimatorVariableNamesConstants
     {

@@ -1,29 +1,31 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class levelLoader : MonoBehaviour
+namespace Scripts.Menu
 {
-    public Animator transition;
-
-    public float transitionTime = 1f;
-
-
-    public void LoadNextLevel()
+    public class levelLoader : MonoBehaviour
     {
-        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
-    }
+        public Animator transition;
 
-    private IEnumerator LoadLevel(int levelIndex)
-    {
-        //Play animation
-        transition.SetTrigger("Start");
+        public float transitionTime = 1f;
 
-        //Wait
-        yield return new WaitForSeconds(transitionTime);
 
-        //Load scene
-        SceneManager.LoadScene(levelIndex);
+        public void LoadNextLevel()
+        {
+            StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
+        }
+
+        private IEnumerator LoadLevel(int levelIndex)
+        {
+            //Play animation
+            transition.SetTrigger("Start");
+
+            //Wait
+            yield return new WaitForSeconds(transitionTime);
+
+            //Load scene
+            SceneManager.LoadScene(levelIndex);
+        }
     }
 }

@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class Steering
+namespace Scripts.Behavior
 {
-    public Vector3 Linear;
-
-    public Steering()
+    public class Steering
     {
-        Linear = new Vector3();
+        public Vector3 Linear;
+
+        public Steering()
+        {
+            Linear = new Vector3();
+        }
     }
 }

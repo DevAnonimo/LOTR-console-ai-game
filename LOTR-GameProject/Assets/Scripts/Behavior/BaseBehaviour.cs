@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using JetBrains.Annotations;
-using Misc;
-using SimpleEnemy;
+using Scripts.Misc;
+using Scripts.SimpleEnemy;
 using UnityEngine;
-using static LOTR_LowPoly.AnimatorVariableNamesConstants;
+using static Scripts.AnimatorVariableNamesConstants;
 
-namespace LOTR_LowPoly
+namespace Scripts.Behavior
 {
     public abstract partial class BaseBehaviour : MonoBehaviour
     {
@@ -130,7 +129,7 @@ namespace LOTR_LowPoly
             agent.speed = _currentSpeed;
         }
 
-        private void AttackPlayer()
+        protected virtual void AttackPlayer()
         {
             if (_canAttack < Time.time == false)
             {

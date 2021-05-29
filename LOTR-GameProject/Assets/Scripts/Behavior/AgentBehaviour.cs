@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 
-public class AgentBehaviour : MonoBehaviour
+namespace Scripts.Behavior
 {
-    protected BaseAgent _Agent;
-
-    public float weight = 1.0f;
-
-    public GameObject target;
-
-    public virtual void Start()
+    public class AgentBehaviour : MonoBehaviour
     {
-        _Agent = gameObject.GetComponent<BaseAgent>();
-    }
+        protected BaseAgent _Agent;
 
-    public virtual void Update()
-    {
-        _Agent.SetSteering(GetSteering(), weight);
-        _Agent.transform.LookAt(target.transform);
-    }
+        public float weight = 1.0f;
 
-    public virtual Steering GetSteering()
-        => new Steering();
+        public GameObject target;
+
+        public virtual void Start()
+        {
+            _Agent = gameObject.GetComponent<BaseAgent>();
+        }
+
+        public virtual void Update()
+        {
+            _Agent.SetSteering(GetSteering(), weight);
+            _Agent.transform.LookAt(target.transform);
+        }
+
+        public virtual Steering GetSteering()
+            => new Steering();
+    }
 }

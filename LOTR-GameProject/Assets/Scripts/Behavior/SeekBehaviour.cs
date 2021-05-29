@@ -1,18 +1,21 @@
-﻿public class SeekBehaviour : AgentBehaviour
+﻿namespace Scripts.Behavior
 {
-    public override Steering GetSteering()
+    public class SeekBehaviour : AgentBehaviour
     {
-        var targetPosition = target.transform.position;
-        var position = transform.position;
-        var targetDirection = targetPosition - position;
-
-        var steer = new Steering
+        public override Steering GetSteering()
         {
-            Linear = targetDirection
-        };
+            var targetPosition = target.transform.position;
+            var position = transform.position;
+            var targetDirection = targetPosition - position;
 
-        steer.Linear.Normalize();
-        steer.Linear *= _Agent.maxAcceleration;
-        return steer;
+            var steer = new Steering
+            {
+                Linear = targetDirection
+            };
+
+            steer.Linear.Normalize();
+            steer.Linear *= _Agent.maxAcceleration;
+            return steer;
+        }
     }
 }

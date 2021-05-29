@@ -1,7 +1,7 @@
-using SimpleEnemy;
+using Scripts.SimpleEnemy;
 using UnityEngine;
 
-namespace Player
+namespace Scripts.Player
 {
     public class CharacterCombat : MonoBehaviour
     {

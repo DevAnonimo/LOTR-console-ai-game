@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SimpleEnemy
+namespace Scripts.SimpleEnemy
 {
     public class SimpleEnemyCombatController : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace LOTR_LowPoly
+﻿namespace Scripts
 {
     public static class AnimatorVariableNamesConstants
     {
