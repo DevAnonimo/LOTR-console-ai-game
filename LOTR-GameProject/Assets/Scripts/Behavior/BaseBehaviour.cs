@@ -38,9 +38,8 @@ namespace Scripts.Behavior
 
         protected virtual void Start()
         {
-            combatAreaDoorTrigger.OnPlayerCrossBattleTrigger += player =>
+            combatAreaDoorTrigger.OnPlayerCrossBattleTrigger += () =>
             {
-                target = player;
                 ChangeState(EnemyPossibleState.Seek);
             };
 
@@ -64,17 +63,23 @@ namespace Scripts.Behavior
 
         protected void ChangeState(EnemyPossibleState newState)
         {
+            Debug.Log(newState);
             _currentState = newState;
 
             if (newState == EnemyPossibleState.Idle)
             {
+                Debug.Log($"{seekState} if1");
                 if (seekState is { } == false) DestroyImmediate(seekState);
+                Debug.Log($"{seekState} saida if1");
             }
             else if (newState == EnemyPossibleState.Seek)
             {
                 if (gameObject.GetComponent<SeekState>() is { } == false)
                     seekState = gameObject.AddComponent<SeekState>();
+                Debug.Log($"{seekState} saida if2");
             }
+
+            Debug.Log($"{seekState} Final");
 
             UpdateCurrentAnimation(newState);
         }
