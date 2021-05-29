@@ -10,7 +10,6 @@ namespace Scripts.Menu
 
         public float transitionTime = 1f;
 
-
         public void LoadNextLevel()
         {
             StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));

@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 7234246268220082762}
   m_Layer: 0
   m_Name: Third Person Player
-  m_TagString: Player
+  m_TagString: CameraPrive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,7 +219,9 @@ MonoBehaviour:
   attackPoint: {fileID: 7234246267872475732}
   attackRange: 0.5
   attackDamage: 40
+  maxHealth: 600
   attackRate: 0.2
+  playerOBJ: {fileID: 7234246268220082767}
 --- !u!114 &7234246268256691390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +306,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: baa29e2f13011e14b88af365ac11bb5e, type: 3}
       propertyPath: m_Name
       value: wairror
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: baa29e2f13011e14b88af365ac11bb5e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2737486010605817267, guid: baa29e2f13011e14b88af365ac11bb5e, type: 3}
       propertyPath: m_LocalPosition.x

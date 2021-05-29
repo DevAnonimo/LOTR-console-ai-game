@@ -108,7 +108,7 @@ namespace Scripts.Behavior
             {
                 _currentSpeed -= _currentSpeed * Time.deltaTime;
 
-                if (distance < 1.5f)
+                if (distance < 2f)
                     _currentSpeed = 0f;
 
                 OnEnemyGetsNear();

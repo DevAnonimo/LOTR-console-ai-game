@@ -7,6 +7,8 @@ namespace Scripts.SimpleEnemy
         public int maxHealth = 100;
         int currentHealth;
 
+        public GameObject obj;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -22,6 +24,9 @@ namespace Scripts.SimpleEnemy
 
             if(currentHealth <= 0)
             {
+                GameManager x = obj.GetComponent<GameManager>();
+                x.DeathCounter();
+
                 Die();
             }
         }

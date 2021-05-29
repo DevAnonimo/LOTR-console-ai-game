@@ -40,6 +40,7 @@ namespace Scripts.Player
             else if (Input.GetKeyDown(KeyCode.Q))
             {
                 SuperAttack();
+                comboStep = 0;
             }
 
             if (Time.time >= nextAttackTime)
@@ -77,7 +78,7 @@ namespace Scripts.Player
                 ApplyDamage();
             }
 
-            Die();
+            //Die();
         }
 
         void Attack()
@@ -119,7 +120,7 @@ namespace Scripts.Player
         public void Die()
         {
             if (_currentHealth <= 0)
-                Destroy(this);
+                Destroy(gameObject);
         }
 
         void SuperAttack()
