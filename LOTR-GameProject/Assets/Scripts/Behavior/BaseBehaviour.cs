@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Scripts.Misc;
+using Scripts.Player;
 using Scripts.SimpleEnemy;
 using UnityEngine;
 using static Scripts.AnimatorVariableNamesConstants;
@@ -11,7 +12,7 @@ namespace Scripts.Behavior
         private float _currentSpeed;
         private float _canAttack = -1f;
         private EnemyPossibleState _currentState;
-        private SimpleEnemyCombatController _enemyCombatController;
+        private CharacterCombat _playerCombatController;
 
         public delegate void EnemyGetsNear();
 
@@ -24,6 +25,7 @@ namespace Scripts.Behavior
         public float distanceToAttack;
         public float distanceToBeginArrival;
         public float attackCooldown = 5f;
+        public int attackDamage = 15;
 
         public SeekState seekState;
 
@@ -43,7 +45,7 @@ namespace Scripts.Behavior
             };
 
             _canAttack = Time.time + attackCooldown;
-            _enemyCombatController = target.GetComponent<SimpleEnemyCombatController>();
+            _playerCombatController = target.GetComponent<CharacterCombat>();
 
             OnEnemyGetsNear += AttackPlayer;
             OnEnemyGetsDistant += () => ChangeState(EnemyPossibleState.Seek);
@@ -141,7 +143,7 @@ namespace Scripts.Behavior
                 return;
 
             ChangeState(EnemyPossibleState.Attack);
-            _enemyCombatController.TakeDamage(15);
+            _playerCombatController.TakeDamage(attackDamage);
             _canAttack += attackCooldown;
         }
     }

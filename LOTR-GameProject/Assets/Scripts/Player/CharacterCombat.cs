@@ -1,3 +1,4 @@
+using System;
 using Scripts.SimpleEnemy;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Scripts.Player
         public Transform attackPoint;
         public float attackRange = 0.5f;
         public int attackDamage = 40;
+        public int maxHealth = 100;
 
         public float attackRate = 2f;
         float nextAttackTime = 0f;
@@ -21,11 +23,15 @@ namespace Scripts.Player
         bool comboPossible;
         int comboStep = 0;
 
+        private int _currentHealth;
 
+        private void Start()
+        {
+            _currentHealth = maxHealth;
+        }
 
         private void Update()
         {
-
             if (Input.GetButtonDown("Fire1"))
             {
                 Attack();
@@ -35,9 +41,9 @@ namespace Scripts.Player
             {
                 SuperAttack();
             }
+
             if (Time.time >= nextAttackTime)
             {
-                
             }
         }
 
@@ -71,14 +77,15 @@ namespace Scripts.Player
 
         void Attack()
         {
-            if(comboStep == 0)
+            if (comboStep == 0)
             {
                 //Play animation
                 gameObject.GetComponent<PlayerAnimStateController>().AttackAnim("Player_Attack");
                 comboStep = 1;
                 return;
             }
-            if(comboStep != 0)
+
+            if (comboStep != 0)
             {
                 if (comboPossible)
                 {
@@ -101,6 +108,8 @@ namespace Scripts.Player
                 enemy.GetComponent<SimpleEnemyCombatController>().TakeDamage(attackDamage);
             }
         }
+
+        public void TakeDamage(int damage) => _currentHealth -= damage;
 
         void SuperAttack()
         {
@@ -125,6 +134,5 @@ namespace Scripts.Player
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
             Gizmos.DrawWireSphere(superAttackPoint.position, superAttackRange);
         }
-
     }
 }
