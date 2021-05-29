@@ -45,6 +45,9 @@ namespace Scripts.Player
             if (Time.time >= nextAttackTime)
             {
             }
+
+
+            Die();
         }
 
         public void ComboPossible()

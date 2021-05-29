@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7234246266810740653}
   m_LocalRotation: {x: 0.0000013416329, y: 0.00000047762046, z: 0.000005751848, w: 1}
-  m_LocalPosition: {x: 6.068035e-10, y: 0.00079999224, z: 0.009999997}
+  m_LocalPosition: {x: -0.0137, y: 0.0008, z: -0.00013}
   m_LocalScale: {x: 0.010000003, y: 0.0100000035, z: 0.010000002}
   m_Children: []
   m_Father: {fileID: 7201130303886376825}
@@ -214,7 +214,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   superAttackPoint: {fileID: 7234246266810740650}
-  superAttackRange: 1
+  superAttackRange: 2.5
   superAttackDamage: 20
   attackPoint: {fileID: 7234246267872475732}
   attackRange: 0.5
