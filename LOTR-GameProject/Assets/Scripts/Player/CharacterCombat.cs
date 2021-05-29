@@ -76,6 +76,8 @@ namespace Scripts.Player
                 gameObject.GetComponent<PlayerAnimStateController>().AttackAnim("Player_Attack 3");
                 ApplyDamage();
             }
+
+            Die();
         }
 
         void Attack()

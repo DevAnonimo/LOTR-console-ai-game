@@ -19,7 +19,6 @@ namespace Scripts.Behavior
         {
             _Agent.SetSteering(GetSteering(), weight);
             _Agent.transform.LookAt(target.transform);
-
         }
 
         public virtual Steering GetSteering()

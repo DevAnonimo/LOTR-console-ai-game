@@ -38,21 +38,16 @@ namespace Scripts.Behavior
 
         protected virtual void Start()
         {
-            combatAreaDoorTrigger.OnPlayerCrossBattleTrigger += () =>
-            {
-                ChangeState(EnemyPossibleState.Seek);
-            };
-
             _canAttack = Time.time + attackCooldown;
             _playerCombatController = target.GetComponent<CharacterCombat>();
 
             OnEnemyGetsNear += AttackPlayer;
             OnEnemyGetsDistant += () => ChangeState(EnemyPossibleState.Seek);
+            combatAreaDoorTrigger.OnPlayerCrossBattleTrigger += () => ChangeState(EnemyPossibleState.Seek);
 
             agent = gameObject.AddComponent<BaseAgent>();
             ChangeState(EnemyPossibleState.Idle);
             agent.speed = maxSpeed;
-            _currentSpeed = maxSpeed;
             _currentSpeed = maxSpeed;
         }
 
@@ -63,23 +58,17 @@ namespace Scripts.Behavior
 
         protected void ChangeState(EnemyPossibleState newState)
         {
-            Debug.Log(newState);
             _currentState = newState;
 
             if (newState == EnemyPossibleState.Idle)
             {
-                Debug.Log($"{seekState} if1");
-                if (seekState is { } == false) DestroyImmediate(seekState);
-                Debug.Log($"{seekState} saida if1");
+                if (seekState) DestroyImmediate(seekState);
             }
             else if (newState == EnemyPossibleState.Seek)
             {
                 if (gameObject.GetComponent<SeekState>() is { } == false)
                     seekState = gameObject.AddComponent<SeekState>();
-                Debug.Log($"{seekState} saida if2");
             }
-
-            Debug.Log($"{seekState} Final");
 
             UpdateCurrentAnimation(newState);
         }

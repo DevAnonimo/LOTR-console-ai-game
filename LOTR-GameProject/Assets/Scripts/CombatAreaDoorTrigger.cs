@@ -1,3 +1,4 @@
+using Scripts.Player;
 using UnityEngine;
 
 namespace Scripts
@@ -10,8 +11,7 @@ namespace Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") == false) return;
-
+            if (other.CompareTag("CameraPrive") == false) return;
             OnPlayerCrossBattleTrigger();
         }
     }
