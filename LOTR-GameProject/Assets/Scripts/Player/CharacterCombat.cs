@@ -111,6 +111,12 @@ namespace Scripts.Player
 
         public void TakeDamage(int damage) => _currentHealth -= damage;
 
+        public void Die()
+        {
+            if (_currentHealth <= 0)
+                Destroy(this);
+        }
+
         void SuperAttack()
         {
             //Play animation
