@@ -153,6 +153,8 @@ MonoBehaviour:
   agent: {fileID: 0}
   target: {fileID: 1093010191}
   animator: {fileID: 190831263}
+  combatAreaDoorTrigger: {fileID: 1928802729}
+  attackCooldown: 5
 --- !u!1 &252265127
 GameObject:
   m_ObjectHideFlags: 3
@@ -177,7 +179,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 252265127}
-  m_LocalRotation: {x: 0.018189492, y: 0.00000006401686, z: -0.000000046124104, w: 0.9998346}
+  m_LocalRotation: {x: 0.018189492, y: 0.00000006205276, z: -0.000000044708976, w: 0.9998346}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -795,7 +797,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258293440}
-  m_LocalRotation: {x: 0.29846185, y: 0.00000007015655, z: -0.000000021939, w: 0.9544216}
+  m_LocalRotation: {x: 0.29846185, y: 0.00000007255661, z: -0.000000022689534, w: 0.9544216}
   m_LocalPosition: {x: 12.2, y: 5.1, z: 12.940001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1126,7 +1128,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1489167962}
-  m_LocalRotation: {x: -0, y: 0.00000008796822, z: -0.00000006098136, w: 1}
+  m_LocalRotation: {x: -0, y: 0.000000090511364, z: -0.00000006274431, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1200,7 +1202,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729106623}
-  m_LocalRotation: {x: -0.018141448, y: 0.000000074172014, z: -0.00000004944975, w: 0.9998355}
+  m_LocalRotation: {x: -0.018141448, y: 0.00000007469339, z: -0.000000049797347, w: 0.99983543}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1406,8 +1408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74fc4d90957a1a4ba722b4019e6b5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LinkedEnemies:
-  - {fileID: 190831262}
 --- !u!65 &1928802730
 BoxCollider:
   m_ObjectHideFlags: 0
